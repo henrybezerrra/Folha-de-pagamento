@@ -5,7 +5,7 @@ package pacoteprincipal;
  * @author Murilo Henrique
  */
 public class Atributos {
-    
+
     private double salFamilia; // Salario Familia
     private double sal; // Salario
     private double qf; // Quantidade de filho
@@ -69,7 +69,5 @@ public class Atributos {
     public void setIrrfAli(double irrfAli) {
         this.irrfAli = irrfAli;
     }
-    
-    
-    
+
 }
