@@ -11,7 +11,7 @@ public class Atributos {
     private double qf; // Quantidade de filho
     private double inss; // INSS
     private double irrf; // IRRF
-    private double inssAli; // INSS
+    private double salLiquido; // INSS
     private double irrfAli; // IRRF
 
     public double getSalFamilia() {
@@ -54,12 +54,12 @@ public class Atributos {
         this.irrf = irrf;
     }
 
-    public double getInssAli() {
-        return inssAli;
+    public double getSalLiquido() {
+        return salLiquido;
     }
 
-    public void setInssAli(double inssAli) {
-        this.inssAli = inssAli;
+    public void setSalLiquido(double salLiquido) {
+        this.salLiquido = salLiquido;
     }
 
     public double getIrrfAli() {
