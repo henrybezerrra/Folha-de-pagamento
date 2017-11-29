@@ -11,8 +11,12 @@ public class Atributos {
     private double qf; // Quantidade de filho
     private double inss; // INSS
     private double irrf; // IRRF
-    private double salLiquido; // INSS
+    private double salLiquido; // Salario Liquido
     private double irrfAli; // IRRF
+    private double totalINSS; // Total do INSS
+    private double totalIRRF;// Total do IRRF
+    private double totalSalFamilia;// Total do Salario Familia
+    private double totalSalLiquido;// Total do Salario Liquido
 
     public double getSalFamilia() {
         return salFamilia;
@@ -68,6 +72,38 @@ public class Atributos {
 
     public void setIrrfAli(double irrfAli) {
         this.irrfAli = irrfAli;
+    }
+
+    public double getTotalINSS() {
+        return totalINSS;
+    }
+
+    public void setTotalINSS(double totalINSS) {
+        this.totalINSS = totalINSS;
+    }
+
+    public double getTotalIRRF() {
+        return totalIRRF;
+    }
+
+    public void setTotalIRRF(double totalIRRF) {
+        this.totalIRRF = totalIRRF;
+    }
+
+    public double getTotalSalFamilia() {
+        return totalSalFamilia;
+    }
+
+    public void setTotalSalFamilia(double totalSalFamilia) {
+        this.totalSalFamilia = totalSalFamilia;
+    }
+
+    public double getTotalSalLiquido() {
+        return totalSalLiquido;
+    }
+
+    public void setTotalSalLiquido(double totalSalLiquido) {
+        this.totalSalLiquido = totalSalLiquido;
     }
 
 }

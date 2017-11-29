@@ -1,9 +1,13 @@
-
 package pacoteprincipal;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FormFolha extends javax.swing.JFrame {
 
-   
     public FormFolha() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -20,9 +24,9 @@ public class FormFolha extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
+        jtNome = new javax.swing.JEditorPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jtSalario = new javax.swing.JTextPane();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -47,9 +51,9 @@ public class FormFolha extends javax.swing.JFrame {
 
         jLabel2.setText("Salario");
 
-        jScrollPane1.setViewportView(jEditorPane1);
+        jScrollPane1.setViewportView(jtNome);
 
-        jScrollPane2.setViewportView(jTextPane1);
+        jScrollPane2.setViewportView(jtSalario);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
 
@@ -57,15 +61,24 @@ public class FormFolha extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "Salario", "INSS", "IRRF", "Salario familia", "Salario Liquido"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setName(""); // NOI18N
         jScrollPane3.setViewportView(jTable1);
 
         jButton1.setText("Adicionar");
@@ -169,37 +182,28 @@ public class FormFolha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Connection con = new ConnectionFactory().getConnection();
+        String sql = "insert into folha (nome,salario,inss,irrf,salariofamilia,salarioliquido) values (?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, jtNome.getText().toString());
+            stmt.setString(2, jtSalario.getText().toString());
+            stmt.setString(3, jtSalario.getText().toString());
+            stmt.setString(4, jtSalario.getText().toString());
+            stmt.setString(5, jtSalario.getText().toString());
+            stmt.setString(6, jtSalario.getText().toString());
+
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(FormFolha.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormFolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormFolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormFolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormFolha.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormFolha().setVisible(true);
@@ -210,7 +214,6 @@ public class FormFolha extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -226,9 +229,10 @@ public class FormFolha extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jtInss;
     private javax.swing.JTextPane jtIrrf;
+    private javax.swing.JEditorPane jtNome;
+    private javax.swing.JTextPane jtSalario;
     private javax.swing.JTextPane jtSalarioFamilia;
     private javax.swing.JTextPane jtSalarioLiquido;
     // End of variables declaration//GEN-END:variables
